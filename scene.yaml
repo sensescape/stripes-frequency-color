@@ -223,7 +223,7 @@ fonts:
 
 scene:
     background:
-        color: [1.000,1.000,1.000]
+        color: [0.000,0.000,0.000]
 
 sources:
     mapzen:
@@ -243,14 +243,14 @@ layers:
             polygons:
                 style: stripes-earth
                 order: global.feature_order
-                color: [0.000,0.000,0.000]
+                color: [0.997,1.000,0.790]
 
     water:
         data: { source: mapzen, layer: water }
         draw:
             polygons:
                 style: stripes-water
-                color: [1.000,1.000,1.000]
+                color: [0.000,0.000,0.000]
                 order: global.feature_order
 
         lakes:
@@ -277,11 +277,11 @@ layers:
                 #     - { $zoom: { min: 15 } }
             draw:
                 polygons:
-                    color: [1.000,1.000,1.000]
+                    color: [0.000,0.000,0.000]
 
     landuse:
         data: { source: mapzen }
-        enabled: true
+        enabled: false
         draw:
             polygons:
                 order: global.feature_order
@@ -301,22 +301,23 @@ layers:
                     color: [0.000,0.770,0.334]
                     visible: true
 
-        universities-schools:
-            filter:
-                kind: [university, college, school]
-            draw:
-                polygons:
-                    style: stripes-university
-                    color: [1.000,0.867,0.000]
-                    visible: true
+        # universities-schools:
+        #     filter:
+        #         kind: [university, college, school]
+        #     draw:
+        #         polygons:
+        #             style: stripes-university
+        #             color: [1.000,0.867,0.000]
+        #             visible: true
 
         # gardens-playgrounds:
         #     filter:
         #         kind: [garden, playground]
         #     draw:
         #         polygons:
-        #             style: stripes-garden
-        #             color: [1.000,1.000,1.000]
+        #             # style: diagonal-stripes-weave
+        #             style: stripes-gardens-overlap-diagonal
+        #             color: [0.000,1.000,0.500]
         #             visible: true
 
         # pitch:
@@ -333,8 +334,8 @@ layers:
         #         kind: golf_course
         #     draw:
         #         polygons:
-        #             style: stripes-golf
-        #             color: [1.000,1.000,1.000]
+        #             style: stripes-golf-overlap-vertical
+        #             color: [0.000,0.770,0.757]
         #             visible: true
 
         # pedestrian:
@@ -346,14 +347,14 @@ layers:
         #             color: [0.000,0.000,0.000]
         #             visible: true
 
-        beach:
-            filter:
-                kind: beach
-            draw:
-                polygons:
-                    style: stripes-beach
-                    color: [1.000,0.867,0.000]
-                    visible: true
+        # beach:
+        #     filter:
+        #         kind: beach
+        #     draw:
+        #         polygons:
+        #             style: stripes-beach
+        #             color: [1.000,0.867,0.000]
+        #             visible: true
 
         # cemetery:
         #     filter:
@@ -364,14 +365,14 @@ layers:
         #             color: [0.000,0.000,0.000]
         #             visible: true
 
-        hospital:
-            filter:
-                kind: hospital
-            draw:
-                polygons:
-                    style: stripes-hospital
-                    color: [1.000,0.000,0.000]
-                    visible: true
+        # hospital:
+        #     filter:
+        #         kind: hospital
+        #     draw:
+        #         polygons:
+        #             style: stripes-hospital
+        #             color: [1.000,0.000,0.000]
+        #             visible: true
 
 
     buildings:
@@ -391,7 +392,7 @@ layers:
         footprints:
             draw:
                 polygons:
-                    style: stripes-buildings
+                    style: stripes-buildings-overlap-horizontal
                     visible: true
 
             # extrude:
@@ -408,19 +409,19 @@ layers:
             #             color: [0.500,0.500,0.500]
             #             extrude: global.building_extrude_height
 
-        in_hospital:
-            filter: { landuse_kind: hospital }
-            draw:
-                polygons:
-                    style: stripes-hospital-buildings
-                    color: [1.000,0.000,0.000]
+        # in_hospital:
+        #     filter: { landuse_kind: hospital }
+        #     draw:
+        #         polygons:
+        #             style: stripes-hospital-buildings
+        #             color: [1.000,0.000,0.000]
 
-        in_university:
-            filter: { landuse_kind: [university,school] }
-            draw:
-                polygons:
-                    style: stripes-university-buildings
-                    color: [1.000,0.867,0.000]
+        # in_university:
+        #     filter: { landuse_kind: [university,school] }
+        #     draw:
+        #         polygons:
+        #             style: stripes-university-buildings
+        #             color: [1.000,0.867,0.000]
 
     places:
         data: { source: mapzen, layer: places }
@@ -433,7 +434,7 @@ layers:
                 buffer: 3px
                 font:
                     family: global.text_font_family
-                    fill: [0.000,0.000,0.000]
+                    fill: [1.000,1.000,1.000]
                     size: 12px
 
         populated-places:
@@ -445,7 +446,7 @@ layers:
                     buffer: 42px
                     font:
                         size: [[5,9px],[8,10px],[12,13px]]
-                        stroke: { color: [1.000,1.000,1.000], width: 3px }
+                        stroke: { color: [0.000,0.000,0.000], width: 3px }
                         transform: uppercase
 
             # _text_early:
@@ -599,32 +600,77 @@ styles:
         mix: [functions-aastep, patterns-stripes, space-screen]
         shaders:
             defines:
-                STRIPES_WIDTH: .45
+                STRIPES_WIDTH: .75
                 STRIPES_ALPHA: 1.0
                 STRIPES_SCALE: 1.0
                 STRIPES_ANGLE: 1.570796325
             blocks:
                 color: |
                     vec2 st = getScreenNonStretchCoords();
-                    color.rgb = mix(color.rgb,vec3(0.151,0.369,0.840),stripes(st*50.,
+                    color.rgb = mix(color.rgb,vec3(0.151,0.369,0.840),stripes(st*30.,
                                         STRIPES_WIDTH,
                                         STRIPES_ANGLE));
 
-    stripes-buildings:
+    stripes-earth:
         base: polygons
         mix: [functions-aastep, patterns-stripes, space-screen]
         shaders:
             defines:
-                STRIPES_WIDTH: .55
+                STRIPES_WIDTH: .95
                 STRIPES_ALPHA: 1.0
                 STRIPES_SCALE: 1.0
-                STRIPES_ANGLE: 0.7853981634
+                STRIPES_ANGLE: 3.14159265
             blocks:
                 color: |
                     vec2 st = getScreenNonStretchCoords();
-                    color.rgb = mix(color.rgb,vec3(1.000),stripes(st*50.,
+                    color.rgb = mix(color.rgb,vec3(0.000),stripes(st*25.,
                                         STRIPES_WIDTH,
                                         STRIPES_ANGLE));
+
+    stripes-buildings-overlap-horizontal:
+        base: polygons
+        mix: [functions-aastep, patterns-stripes, space-screen]
+        shaders:
+            defines:
+                STRIPES_WIDTH: .5
+                STRIPES_WIDTH2: .95
+                STRIPES_ALPHA: 1.0
+                STRIPES_SCALE: 1.0
+                STRIPES_ANGLE: 1.570796325
+                STRIPES_ANGLE2: 3.14159265
+            blocks:
+                # color: |
+                #     vec2 st = getScreenNonStretchCoords();
+                #     color.rgb = mix(color.rgb,mix(vec3(0.000,1.000,0.000),vec3(0.000,0.000,1.000),stripes(st*50.,
+                #                         STRIPES_WIDTH2,
+                #                         STRIPES_ANGLE)),stripes(st*50.,
+                #                         STRIPES_WIDTH,
+                #                         STRIPES_ANGLE2));
+
+                color: |
+                    vec2 st = getScreenNonStretchCoords();
+                    color.rgb = mix(mix(vec3(1.000,0.883,0.000),vec3(0.000,0.000,0.000),stripes(st*25.,STRIPES_WIDTH2,STRIPES_ANGLE)),color.rgb,stripes(st*25.,STRIPES_WIDTH,STRIPES_ANGLE2));
+
+    stripes-green:
+        base: polygons
+        mix: [functions-aastep, patterns-stripes, space-screen]
+        shaders:
+            defines:
+                STRIPES_WIDTH: .25
+                STRIPES_WIDTH2: .25
+                STRIPES_ALPHA: 1.0
+                STRIPES_SCALE: 1.0
+                STRIPES_ANGLE: 3.14159265
+                STRIPES_ANGLE2: 3.14159265
+            blocks:
+                color: |
+                    vec2 st = getScreenNonStretchCoords();
+                    color.rgb = mix(vec3(0.000,0.233,1.000),mix(vec3(0.000,0.000,0.000).rgb,vec3(0.000,0.720,0.372),stripes(st*50.,
+                                        STRIPES_WIDTH2,
+                                        STRIPES_ANGLE)),stripes(st*25.,
+                                        STRIPES_WIDTH,
+                                        STRIPES_ANGLE2));
+
 
     stripes-hospital-buildings:
         base: polygons
@@ -658,22 +704,6 @@ styles:
                                         STRIPES_WIDTH,
                                         STRIPES_ANGLE));
 
-    stripes-earth:
-        base: polygons
-        mix: [functions-aastep, patterns-stripes, space-screen]
-        shaders:
-            defines:
-                STRIPES_WIDTH: .12
-                STRIPES_ALPHA: 1.0
-                STRIPES_SCALE: 0.1
-                STRIPES_ANGLE: 0.7853981634
-            blocks:
-                color: |
-                    vec2 st = getScreenNonStretchCoords();
-                    color.rgb = mix(color.rgb,vec3(1.000),stripes(st*50.,
-                                        STRIPES_WIDTH,
-                                        STRIPES_ANGLE));
-
     stripes-hospital:
         base: polygons
         mix: [functions-aastep, patterns-stripes, space-screen]
@@ -690,23 +720,73 @@ styles:
                                         STRIPES_WIDTH,
                                         STRIPES_ANGLE));
 
-    stripes-green:
+    diagonal-stripes-weave:
         base: polygons
-        mix: [functions-aastep, patterns-stripes, space-screen]
+        mix: [patterns-stripes, space-constant]
+        blend: inlay
+        shaders:
+            # defines:
+            #     GRAIN_AMOUNT: 0.1
+            #     NUM_OCTAVES: 4
+            blocks:
+                color: |
+                    color = mix(color,vec4(0.590,0.770,0.000,0.5),diagonalStripes(getConstantCoords()*50.));
+
+    stripes-gardens-overlap-diagonal:
+        base: polygons
+        mix: [functions-aastep, pallete, patterns-stripes, space-screen]
+        blend: inlay
         shaders:
             defines:
                 STRIPES_WIDTH: .42
+                STRIPES_WIDTH2: .42
                 STRIPES_ALPHA: 1.0
-                STRIPES_SCALE: 0.1
-                # STRIPES_ANGLE: 0.7853981634
-                # STRIPES_ANGLE: 3.14159265
-                STRIPES_ANGLE: 1.570796325
+                STRIPES_SCALE: 1.0
+                STRIPES_ANGLE: 0.7853981634
+                STRIPES_ANGLE2: 1.570796325
             blocks:
+                # color: |
+                #     vec2 st = getScreenNonStretchCoords();
+                #     color = mix(color,mix(color,vec4(0.950,0.950,0.950,0.5),stripes(st*50.,
+                #                         STRIPES_WIDTH2,
+                #                         STRIPES_ANGLE)),stripes(st*50.,
+                #                         STRIPES_WIDTH,
+                #                         STRIPES_ANGLE2));
                 color: |
                     vec2 st = getScreenNonStretchCoords();
-                    color.rgb = mix(color.rgb,vec3(1.000),stripes(st*50.,
+                    color.rgb = mix(color.rgb,mix(vec3(0.000,1.000,0.500),vec3(1.000,1.000,1.000),stripes(st*100.,
+                                        STRIPES_WIDTH2,
+                                        STRIPES_ANGLE)),stripes(st*50.,
                                         STRIPES_WIDTH,
-                                        STRIPES_ANGLE));
+                                        STRIPES_ANGLE2));
+
+    stripes-golf-overlap-vertical:
+        base: polygons
+        mix: [functions-aastep, pallete, patterns-stripes, space-screen]
+        blend: inlay
+        shaders:
+            defines:
+                STRIPES_WIDTH: .42
+                STRIPES_WIDTH2: .82
+                STRIPES_ALPHA: 1.0
+                STRIPES_SCALE: 1.0
+                STRIPES_ANGLE: 1.570796325
+                STRIPES_ANGLE2: 1.570796325
+            blocks:
+                # color: |
+                #     vec2 st = getScreenNonStretchCoords();
+                #     color = mix(color,mix(color,vec4(0.950,0.950,0.950,0.5),stripes(st*50.,
+                #                         STRIPES_WIDTH2,
+                #                         STRIPES_ANGLE)),stripes(st*50.,
+                #                         STRIPES_WIDTH,
+                #                         STRIPES_ANGLE2));
+                color: |
+                    vec2 st = getScreenNonStretchCoords();
+                    color.rgb = mix(color.rgb,mix(vec3(0.500,0.000,1.000),vec3(1.000,1.000,1.000),stripes(st*20.,
+                                        STRIPES_WIDTH2,
+                                        STRIPES_ANGLE)),stripes(st*50.,
+                                        STRIPES_WIDTH,
+                                        STRIPES_ANGLE2));
 
     stripes-garden:
         base: polygons
@@ -984,6 +1064,44 @@ styles:
                         return st;
                     }
                     #endif
+
+    space-constant:
+        doc:
+            author: 
+                name: Patricio Gonzalez Vivo
+                twitter: patriciogv
+            version: 0.0.1
+            tangram-version: 0.0.7
+            licence: MIT
+            description: |
+                Get the constant coordinates **(warning: could glitch on zooms)**
+            examples:
+                grain-area:
+                    url: https://tangrams.github.io/tangram-sandbox/styles/grain-area.yaml
+                    img: https://tangrams.github.io/tangram-sandbox/styles/grain-area.png
+                    lines: 26
+        test:
+            constant: 
+                blocks:
+                    color: |
+                        vec2 st = getConstantCoords();
+                        color.rg += fract(st*3.);
+
+        shaders:
+            blocks:
+                global: |
+                    vec2 getConstantCoords () {
+                        #ifdef TANGRAM_FRAGMENT_SHADER
+                        const float pixel_scale = 695.;
+                        float meter_pixels = u_meters_per_pixel / u_device_pixel_ratio;
+                        vec2 st = gl_FragCoord.xy/pixel_scale;
+                        const float dot_wrap = 1000.;
+                        st += mod(u_map_position.xy / meter_pixels, dot_wrap)/pixel_scale;
+                        return st;
+                        #else
+                        return vec2(0.0,0.0);
+                        #endif
+                    }
 
     patterns-stripes:
         doc:
