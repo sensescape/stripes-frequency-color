@@ -250,7 +250,8 @@ layers:
         draw:
             polygons:
                 style: stripes-water
-                color: [0.151,0.369,0.840]
+                # color: [0.151,0.369,0.840]
+                color: [0.000,0.519,0.890]
                 order: global.feature_order
 
         lakes:
@@ -277,7 +278,8 @@ layers:
                 #     - { $zoom: { min: 15 } }
             draw:
                 polygons:
-                    color: [0.151,0.369,0.840]
+                    # color: [0.151,0.369,0.840]
+                    color: [0.000,0.519,0.890]
 
     landuse:
         data: { source: mapzen }
@@ -347,14 +349,14 @@ layers:
         #             color: [0.000,0.000,0.000]
         #             visible: true
 
-        # beach:
-        #     filter:
-        #         kind: beach
-        #     draw:
-        #         polygons:
-        #             style: stripes-beach
-        #             color: [1.000,0.867,0.000]
-        #             visible: true
+        beach:
+            filter:
+                kind: beach
+            draw:
+                polygons:
+                    style: stripes-beach
+                    color: [0.000,0.000,0.000]
+                    visible: true
 
         # cemetery:
         #     filter:
@@ -432,7 +434,7 @@ layers:
                 buffer: 3px
                 font:
                     family: global.text_font_family
-                    fill: [1.000,1.000,1.000]
+                    fill: [0.000,0.000,0.000]
                     size: 12px
 
         populated-places:
@@ -444,7 +446,7 @@ layers:
                     buffer: 42px
                     font:
                         size: [[5,9px],[8,10px],[12,13px]]
-                        stroke: { color: [0.000,0.000,0.000], width: 3px }
+                        stroke: { color: [0.998,1.000,0.850], width: 3px }
                         transform: uppercase
 
             # _text_early:
@@ -730,6 +732,26 @@ styles:
                                         STRIPES_WIDTH,
                                         STRIPES_ANGLE2));
 
+    stripes-beach:
+        base: polygons
+        mix: [functions-aastep, patterns-stripes, space-screen]
+        shaders:
+            defines:
+                STRIPES_WIDTH: .45
+                STRIPES_WIDTH2: .995
+                STRIPES_ALPHA: 1.0
+                STRIPES_SCALE: 1.0
+                STRIPES_ANGLE: 1.570796325
+                STRIPES_ANGLE2: 1.570796325
+            blocks:
+                color: |
+                    vec2 st = getScreenNonStretchCoords();
+                    color.rgb = mix(vec3(0.980,0.980,0.980),mix(vec3(1.000,0.925,0.590).rgb,color.rgb,stripes(st*25.,
+                                        STRIPES_WIDTH2,
+                                        STRIPES_ANGLE)),stripes(st*25.,
+                                        STRIPES_WIDTH,
+                                        STRIPES_ANGLE2));
+
     stripes-hospital:
         base: polygons
         mix: [functions-aastep, patterns-stripes, space-screen]
@@ -859,24 +881,6 @@ styles:
                 color: |
                     vec2 st = getScreenNonStretchCoords();
                     color.rgb = mix(color.rgb,vec3(1.000),stripes(st*15.,
-                                        STRIPES_WIDTH,
-                                        STRIPES_ANGLE));
-
-    stripes-beach:
-        base: polygons
-        mix: [functions-aastep, patterns-stripes, space-screen]
-        shaders:
-            defines:
-                STRIPES_WIDTH: .42
-                STRIPES_ALPHA: 1.0
-                STRIPES_SCALE: 0.1
-                # STRIPES_ANGLE: 0.7853981634
-                # STRIPES_ANGLE: 3.14159265
-                STRIPES_ANGLE: 1.570796325
-            blocks:
-                color: |
-                    vec2 st = getScreenNonStretchCoords();
-                    color.rgb = mix(color.rgb,vec3(1.000),stripes(st*50.,
                                         STRIPES_WIDTH,
                                         STRIPES_ANGLE));
 
