@@ -677,7 +677,7 @@ styles:
         shaders:
             defines:
                 STRIPES_WIDTH: .5
-                STRIPES_WIDTH2: .995
+                STRIPES_WIDTH2: .95
                 STRIPES_ALPHA: 1.0
                 STRIPES_SCALE: 1.0
                 STRIPES_ANGLE: 1.570796325
@@ -698,7 +698,7 @@ styles:
         shaders:
             defines:
                 STRIPES_WIDTH: .45
-                STRIPES_WIDTH2: .995
+                STRIPES_WIDTH2: .95
                 STRIPES_ALPHA: 1.0
                 STRIPES_SCALE: 1.0
                 STRIPES_ANGLE: 1.570796325
@@ -718,7 +718,7 @@ styles:
         shaders:
             defines:
                 STRIPES_WIDTH: .45
-                STRIPES_WIDTH2: .995
+                STRIPES_WIDTH2: .95
                 STRIPES_ALPHA: 1.0
                 STRIPES_SCALE: 1.0
                 STRIPES_ANGLE: 1.570796325
