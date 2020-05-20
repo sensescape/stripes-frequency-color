@@ -1,4 +1,4 @@
-### Stripes Frequency
+### Stripes Frequency and Color
 
 A visual study of stripes. 
 
