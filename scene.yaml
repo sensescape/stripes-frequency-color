@@ -416,6 +416,13 @@ layers:
                 polygons:
                     style: stripes-hospital-buildings
 
+        in_retail:
+            filter: { landuse_kind: retail }
+            draw:
+                polygons:
+                    visible: true
+                    style: stripes-retail-buildings
+
         in_university:
             filter: { landuse_kind: [university,school] }
             draw:
@@ -648,7 +655,11 @@ styles:
 
                 color: |
                     vec2 st = getScreenNonStretchCoords();
-                    color.rgb = mix(mix(vec3(1.000,0.783,0.000),vec3(0.000,0.000,0.000),stripes(st*25.,STRIPES_WIDTH2,STRIPES_ANGLE)),color.rgb,stripes(st*25.,STRIPES_WIDTH,STRIPES_ANGLE2));
+                    color.rgb = mix(mix(vec3(1.000,0.783,0.000),vec3(0.000,0.000,0.000),stripes(st*25.,
+                                        STRIPES_WIDTH2,
+                                        STRIPES_ANGLE)),color.rgb,stripes(st*25.,
+                                        STRIPES_WIDTH,
+                                        STRIPES_ANGLE2));
 
     stripes-hospital-buildings:
         base: polygons
@@ -669,6 +680,33 @@ styles:
                                         STRIPES_ANGLE)),color.rgb,stripes(st*25.,
                                         STRIPES_WIDTH,
                                         STRIPES_ANGLE2));
+
+    stripes-retail-buildings:
+        base: polygons
+        mix: [functions-aastep, patterns-stripes, space-screen]
+        shaders:
+            defines:
+                STRIPES_WIDTH: .85
+                STRIPES_WIDTH2: .995
+                STRIPES_WIDTH3: .5
+                STRIPES_ALPHA: 1.0
+                STRIPES_SCALE: 1.0
+                STRIPES_ANGLE: 1.570796325
+                STRIPES_ANGLE2: 3.14159265
+                STRIPES_ANGLE3: 3.14159265
+            blocks:
+                color: |
+                    vec2 st = getScreenNonStretchCoords();
+                    color.rgb = mix(mix(mix(vec3(1.000,0.783,0.000),vec3(0.000),stripes(st*25.,STRIPES_WIDTH2,STRIPES_ANGLE)),vec3(1.000,0.260,0.938),stripes(st*25.,STRIPES_WIDTH3,STRIPES_ANGLE2)),color.rgb,stripes(st*25.,STRIPES_WIDTH,STRIPES_ANGLE3));
+                    
+
+# color.rgb = mix(mix(vec3(1.000,0.000,0.383),vec3(0.000,0.000,0.000),stripes(st*25.,STRIPES_WIDTH2,STRIPES_ANGLE)),color.rgb,stripes(st*25.,STRIPES_WIDTH,STRIPES_ANGLE2));
+
+# color.rgb = mix(color.rgb,vec3(0.000),stripes(st*25.,STRIPES_WIDTH,STRIPES_ANGLE));
+
+# color.rgb = mix(mix(vec3(1.000,0.000,0.383),vec3(0.000),stripes(st*25.,STRIPES_WIDTH2,STRIPES_ANGLE)),color.rgb,stripes(st*25.,STRIPES_WIDTH,STRIPES_ANGLE2));
+
+# color.rgb = mix(mix(mix(vec3(1.000,0.000,0.383),vec3(0.000),stripes(st*25.,STRIPES_WIDTH2,STRIPES_ANGLE)),vec3(0.000),stripes(st*25.,STRIPES_WIDTH3,STRIPES_ANGLE2)),color.rgb,stripes(st*25.,STRIPES_WIDTH,STRIPES_ANGLE3));
 
     stripes-university-buildings:
         base: polygons
