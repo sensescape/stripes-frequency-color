@@ -243,7 +243,7 @@ layers:
             polygons:
                 style: stripes-earth
                 order: global.feature_order
-                color: [0.998,1.000,0.850]
+                color: [0.998,1.000,0.900]
 
     water:
         data: { source: mapzen, layer: water }
@@ -330,23 +330,23 @@ layers:
                     color: [0.600,1.000,0.110]
                     visible: true
 
-        # golf_course:
-        #     filter:
-        #         kind: golf_course
-        #     draw:
-        #         polygons:
-        #             style: stripes-golf-overlap-vertical
-        #             color: [0.000,0.770,0.757]
-        #             visible: true
+        golf_course:
+            filter:
+                kind: golf_course
+            draw:
+                polygons:
+                    style: stripes-golf
+                    color: [0.000,0.000,0.000]
+                    visible: true
 
-        # pedestrian:
-        #     filter:
-        #         kind: [pedestrian,common,footway]
-        #     draw:
-        #         polygons:
-        #             style: stripes-pedestrian
-        #             color: [0.000,0.000,0.000]
-        #             visible: true
+        pedestrian:
+            filter:
+                kind: [pedestrian,common,footway]
+            draw:
+                polygons:
+                    style: stripes-pedestrian
+                    color: [0.750,0.750,0.750]
+                    visible: true
 
         beach:
             filter:
@@ -366,14 +366,14 @@ layers:
         #             color: [0.000,0.000,0.000]
         #             visible: true
 
-        # hospital:
-        #     filter:
-        #         kind: hospital
-        #     draw:
-        #         polygons:
-        #             style: stripes-hospital
-        #             color: [1.000,0.000,0.000]
-        #             visible: true
+        hospital:
+            filter:
+                kind: hospital
+            draw:
+                polygons:
+                    style: stripes-hospital
+                    color: [1.000,0.820,0.820]
+                    visible: true
 
 
     buildings:
@@ -783,19 +783,75 @@ styles:
                                         STRIPES_WIDTH,
                                         STRIPES_ANGLE2));
 
+    # stripes-hospital:
+    #     base: polygons
+    #     mix: [functions-aastep, patterns-stripes, space-screen]
+    #     shaders:
+    #         defines:
+    #             STRIPES_WIDTH: .45
+    #             STRIPES_WIDTH2: .95
+    #             STRIPES_ALPHA: 1.0
+    #             STRIPES_SCALE: 1.0
+    #             STRIPES_ANGLE: 1.570796325
+    #             STRIPES_ANGLE2: 1.570796325
+    #         blocks:
+    #             color: |
+    #                 vec2 st = getScreenNonStretchCoords();
+    #                 color.rgb = mix(vec3(0.998,1.000,0.900),mix(vec3(1.000,0.910,0.910).rgb,color.rgb,stripes(st*25.,
+    #                                     STRIPES_WIDTH2,
+    #                                     STRIPES_ANGLE)),stripes(st*25.,
+    #                                     STRIPES_WIDTH,
+    #                                     STRIPES_ANGLE2));
+
     stripes-hospital:
         base: polygons
         mix: [functions-aastep, patterns-stripes, space-screen]
         shaders:
             defines:
-                STRIPES_WIDTH: .12
+                STRIPES_WIDTH: .995
                 STRIPES_ALPHA: 1.0
-                STRIPES_SCALE: 0.1
-                STRIPES_ANGLE: 0.7853981634
+                STRIPES_SCALE: 1.0
+                STRIPES_ANGLE: 1.570796325
             blocks:
                 color: |
                     vec2 st = getScreenNonStretchCoords();
-                    color.rgb = mix(color.rgb,vec3(1.000),stripes(st*50.,
+                    color.rgb = mix(color.rgb,vec3(0.000),stripes(st*25.,
+                                        STRIPES_WIDTH,
+                                        STRIPES_ANGLE));
+
+    stripes-golf:
+        base: polygons
+        mix: [functions-aastep, patterns-stripes, space-screen]
+        shaders:
+            defines:
+                STRIPES_WIDTH: .45
+                STRIPES_WIDTH2: .95
+                STRIPES_ALPHA: 1.0
+                STRIPES_SCALE: 1.0
+                STRIPES_ANGLE: 1.570796325
+                STRIPES_ANGLE2: 1.570796325
+            blocks:
+                color: |
+                    vec2 st = getScreenNonStretchCoords();
+                    color.rgb = mix(vec3(0.931,1.000,0.840),mix(vec3(0.000,0.910,0.258).rgb,color.rgb,stripes(st*25.,
+                                        STRIPES_WIDTH2,
+                                        STRIPES_ANGLE)),stripes(st*25.,
+                                        STRIPES_WIDTH,
+                                        STRIPES_ANGLE2));
+
+    stripes-pedestrian:
+        base: polygons
+        mix: [functions-aastep, patterns-stripes, space-screen]
+        shaders:
+            defines:
+                STRIPES_WIDTH: .5
+                STRIPES_ALPHA: 1.0
+                STRIPES_SCALE: 1.0
+                STRIPES_ANGLE: 1.570796325
+            blocks:
+                color: |
+                    vec2 st = getScreenNonStretchCoords();
+                    color.rgb = mix(color.rgb,vec3(0.000),stripes(st*25.,
                                         STRIPES_WIDTH,
                                         STRIPES_ANGLE));
 
@@ -854,38 +910,6 @@ styles:
                                         STRIPES_ANGLE)),stripes(st*50.,
                                         STRIPES_WIDTH,
                                         STRIPES_ANGLE2));
-
-    stripes-pedestrian:
-        base: polygons
-        mix: [functions-aastep, patterns-stripes, space-screen]
-        shaders:
-            defines:
-                STRIPES_WIDTH: .07
-                STRIPES_ALPHA: 1.0
-                STRIPES_SCALE: 1.0
-                STRIPES_ANGLE: 3.14159265
-            blocks:
-                color: |
-                    vec2 st = getScreenNonStretchCoords();
-                    color.rgb = mix(color.rgb,vec3(1.000),stripes(st*15.,
-                                        STRIPES_WIDTH,
-                                        STRIPES_ANGLE));
-
-    stripes-golf:
-        base: polygons
-        mix: [functions-aastep, patterns-stripes, space-screen]
-        shaders:
-            defines:
-                STRIPES_WIDTH: .85
-                STRIPES_ALPHA: 1.0
-                STRIPES_SCALE: 1.0
-                STRIPES_ANGLE: 3.14159265
-            blocks:
-                color: |
-                    vec2 st = getScreenNonStretchCoords();
-                    color.rgb = mix(color.rgb,vec3(0.000),stripes(st*125.,
-                                        STRIPES_WIDTH,
-                                        STRIPES_ANGLE));
 
     stripes-cemetery:
         base: polygons
