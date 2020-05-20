@@ -372,7 +372,8 @@ layers:
             draw:
                 polygons:
                     style: stripes-hospital
-                    color: [1.000,0.820,0.820]
+                    color: [0.000,0.000,0.000]
+                    # color: [1.000,0.820,0.820]
                     visible: true
 
 
@@ -821,41 +822,25 @@ styles:
                                         STRIPES_WIDTH,
                                         STRIPES_ANGLE2));
 
-    # stripes-hospital:
-    #     base: polygons
-    #     mix: [functions-aastep, patterns-stripes, space-screen]
-    #     shaders:
-    #         defines:
-    #             STRIPES_WIDTH: .45
-    #             STRIPES_WIDTH2: .95
-    #             STRIPES_ALPHA: 1.0
-    #             STRIPES_SCALE: 1.0
-    #             STRIPES_ANGLE: 1.570796325
-    #             STRIPES_ANGLE2: 1.570796325
-    #         blocks:
-    #             color: |
-    #                 vec2 st = getScreenNonStretchCoords();
-    #                 color.rgb = mix(vec3(0.998,1.000,0.900),mix(vec3(1.000,0.910,0.910).rgb,color.rgb,stripes(st*25.,
-    #                                     STRIPES_WIDTH2,
-    #                                     STRIPES_ANGLE)),stripes(st*25.,
-    #                                     STRIPES_WIDTH,
-    #                                     STRIPES_ANGLE2));
-
     stripes-hospital:
         base: polygons
         mix: [functions-aastep, patterns-stripes, space-screen]
         shaders:
             defines:
-                STRIPES_WIDTH: .995
+                STRIPES_WIDTH: .45
+                STRIPES_WIDTH2: .95
                 STRIPES_ALPHA: 1.0
                 STRIPES_SCALE: 1.0
                 STRIPES_ANGLE: 1.570796325
+                STRIPES_ANGLE2: 1.570796325
             blocks:
                 color: |
                     vec2 st = getScreenNonStretchCoords();
-                    color.rgb = mix(color.rgb,vec3(0.000),stripes(st*25.,
+                    color.rgb = mix(vec3(0.998,1.000,0.900),mix(vec3(1.000,0.910,0.910).rgb,color.rgb,stripes(st*25.,
+                                        STRIPES_WIDTH2,
+                                        STRIPES_ANGLE)),stripes(st*25.,
                                         STRIPES_WIDTH,
-                                        STRIPES_ANGLE));
+                                        STRIPES_ANGLE2));
 
     stripes-golf:
         base: polygons
