@@ -243,7 +243,8 @@ layers:
             polygons:
                 style: stripes-earth
                 order: global.feature_order
-                color: [0.998,1.000,0.970]
+                color: [0.999,1.000,0.950]
+                # color: [1.000,0.916,0.370]
 
     water:
         data: { source: mapzen, layer: water }
@@ -836,7 +837,7 @@ styles:
             blocks:
                 color: |
                     vec2 st = getScreenNonStretchCoords();
-                    color.rgb = mix(vec3(0.998,1.000,0.970),mix(vec3(1.000,0.910,0.910).rgb,color.rgb,stripes(st*25.,
+                    color.rgb = mix(vec3(0.999,1.000,0.950),mix(vec3(1.000,0.910,0.910).rgb,color.rgb,stripes(st*25.,
                                         STRIPES_WIDTH2,
                                         STRIPES_ANGLE)),stripes(st*25.,
                                         STRIPES_WIDTH,
