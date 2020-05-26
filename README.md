@@ -2,7 +2,7 @@
 
 A visual study of stripes. 
 
-Learn more. Read the blog post on Geraldine Sarmiento's [Cartography Journal: Visual Studies in Stripes: Frequency](https://geraldinesarmiento.com/cartography/2020/4/10/the-language-of-stripes)
+Learn more. Read the blog post on Geraldine Sarmiento's [Cartography Journal: Visual Studies in Stripes, Part II](https://geraldinesarmiento.com/cartography/2020/5/21/visual-studies-in-stripes-part-ii)
 
-![Beijing](https://raw.githubusercontent.com/sensescape/stripes-frequency/master/images/beijing-img.png)
+![Los Angeles](https://raw.githubusercontent.com/sensescape/stripes-frequency-color/master/images/beijing-img.png)
 
