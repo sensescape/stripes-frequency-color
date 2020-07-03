@@ -1,6 +1,6 @@
 ### Stripes Frequency and Color
 
-A visual study of stripes. 
+Visual Studies in Stripes 
 
 Learn more. Read the blog post on Geraldine Sarmiento's [Cartography Journal: Visual Studies in Stripes, Part II](https://geraldinesarmiento.com/cartography/2020/5/21/visual-studies-in-stripes-part-ii)
 
